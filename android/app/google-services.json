@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47029384184",
+    "project_id": "pickytour-de19a",
+    "storage_bucket": "pickytour-de19a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47029384184:android:584200c5e2706c5eff5c0d",
+        "android_client_info": {
+          "package_name": "com.example.pickytour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47029384184-1kq6gmrpqn1vq573e3ht34u9dkopkg5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnuC50g3FWw-3h5qgNTbujQN_BkZ4aS18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47029384184-1kq6gmrpqn1vq573e3ht34u9dkopkg5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
