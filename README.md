@@ -1,5 +1,7 @@
 # pickytour
-A new Flutter project.
+A new Flutter project for hotels booking.
+
+Real project Screens
 
 ![splash](https://github.com/Mohamed-elsaprot/booking-hotel/assets/137312738/98784c9a-206e-4101-a2c6-378b1a3a83af)
 ![sign in](https://github.com/Mohamed-elsaprot/booking-hotel/assets/137312738/1074cde3-4c94-426a-926f-e569f4d8d132)
@@ -12,15 +14,4 @@ A new Flutter project.
 ![payment successful](https://github.com/Mohamed-elsaprot/booking-hotel/assets/137312738/30f72935-7329-4b24-a325-6c98498499b5)
 
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
