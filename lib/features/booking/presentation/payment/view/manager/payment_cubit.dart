@@ -7,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 class PaymentCubit extends Cubit<PaymentStates>{
   PaymentCubit():super(PaymentAuthTokenInitial());
 
+  String firstName='',lastName='',phone='',nationalId='', detailedAddress='',country='Egypt',city='';
+
   Future getAuthToken()async{
     emit(PaymentAuthTokenLoading());
       await Paymob.PaymobPostDataDio(endPoint: Paymob.authTokenUrl,
@@ -30,6 +32,10 @@ class PaymentCubit extends Cubit<PaymentStates>{
     required String phone,
     required String price,
     required String email,
+    required String country,
+    required String city,
+    required String detailedAddress,
+    required Map<String,dynamic> order
   })async{
     emit(PaymentOrderIdLoading());
     await Paymob.PaymobPostDataDio(endPoint: Paymob.orderIdUrl,
@@ -39,48 +45,43 @@ class PaymentCubit extends Cubit<PaymentStates>{
           "amount_cents": price,
           "currency": "EGP",
           "items": [
+            //order
             {
-              "name": "iphone14",
-              "amount_cents": "50000",
-              "description": "mobile",
-              "quantity": "1"
-            },
-            {
-              "name": "ERT6565",
-              "amount_cents": "200000",
-              "description": "Power Bank",
+              "name": "Hotel Booking",
+              "amount_cents": "2222222",
+              "description": order.toString(),
               "quantity": "1"
             }
           ],
           "shipping_data": {
-            "apartment": "803",
+            "building": "000",
+            "postal_code": "000",
+            "floor": "000",
+            "apartment": "000",
+            "extra_description": "NationalId: $nationalId",
+            "street": detailedAddress,
             "email": email,
-            "floor": "11",
             "first_name": firstName,
             "last_name": lastName,
-            "street": "عزبة جاد",
-            "building": "10",
             "phone_number": phone,
-            "postal_code": "01898",
-            "extra_description": "لندن الدور التاني",
-            "city": "bilqas",
-            "country": 'ام الدنيا'
+             "city": city,
+             "country": country
           },
-          "shipping_details": {
-            "notes" : " test",
-            "number_of_packages": 1,
-            "weight" : 1,
-            "weight_unit" : "Kilogram",
-            "length" : 1,
-            "width" :1,
-            "height" :1,
-            "contents" : "product of some sorts"
-          }
+          // "shipping_details": {
+          //   "notes" : " test",
+          //   "number_of_packages": 1,
+          //   "weight" : 1,
+          //   "weight_unit" : "Kilogram",
+          //   "length" : 1,
+          //   "width" :1,
+          //   "height" :1,
+          //   "contents" : "product of some sorts"
+          // }
         }
         ).then((value) {
       Paymob.orderIdToken=value.data['id'].toString();
       print('order id: ${Paymob.orderIdToken}');
-      getPaymentRequest(firstName: firstName, lastName: lastName, phone: phone, price: price);
+      getPaymentRequest(firstName: firstName, lastName: lastName, phone: phone, price: price, email: email, detailedAddress: detailedAddress, country: country, city: detailedAddress);
       emit(PaymentOrderIdSuccess());
     }).catchError((e){
       print('orderrrrr id fail');
@@ -95,28 +96,34 @@ class PaymentCubit extends Cubit<PaymentStates>{
         required String lastName,
         required String phone,
         required String price,
-      })async{
+        required String email,
+        required String country,
+        required String city,
+        required String detailedAddress,
+
+  })async{
     emit(PaymentRequestLoading());
     await Paymob.PaymobPostDataDio(endPoint: Paymob.paymentKeyReqUrl,
         data: {
           "auth_token": Paymob.authToken,
-          "amount_cents": "1000",
+          "amount_cents": price,
           "expiration": 3600,
           "order_id": Paymob.orderIdToken,
           "billing_data": {
-            "apartment": "803",
-            "email": "claudette09@exa.com",
-            "floor": "42",
-            "first_name": "Clifford",
-            "street": "Ethan Land",
-            "building": "8028",
-            "phone_number": "+86(8)9135210487",
-            "shipping_method": "PKG",
-            "postal_code": "01898",
-            "city": "Jaskolskiburgh",
-            "country": "CR",
-            "last_name": "Nicolas",
-            "state": "Utah",
+            "apartment": "000",
+            "floor": "000",
+            "building": "000",
+            "postal_code": "000",
+            "state": "null",
+            "shipping_method": "null",
+
+            "email": email,
+            "first_name": firstName,
+            "last_name": lastName,
+            "street": detailedAddress,
+            "phone_number": phone,
+            "city": city,
+            "country": country,
           },
           "currency": "EGP",
           "integration_id": Paymob.integrationIdCard,

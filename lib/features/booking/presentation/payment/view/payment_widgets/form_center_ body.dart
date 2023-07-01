@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pickytour/constants.dart';
 import 'package:pickytour/features/booking/presentation/payment/view/payment_widgets/payment_text_field.dart';
+
+import '../manager/payment_cubit.dart';
 
 class FormCenterBody extends StatelessWidget {
   const FormCenterBody({Key? key,required this.bookingDataMap}) : super(key: key);
@@ -7,6 +11,7 @@ class FormCenterBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PaymentCubit cubit = BlocProvider.of<PaymentCubit>(context);
     return Column(
       children: [
         Row(
@@ -17,6 +22,7 @@ class FormCenterBody extends StatelessWidget {
                   keyboard: TextInputType.name,
                   onChange: (x) {
                     bookingDataMap['FirstName']=x;
+                    cubit.firstName=x;
                   },
                 validateFun: (firstName){
                     if(firstName!.isEmpty){
@@ -33,6 +39,7 @@ class FormCenterBody extends StatelessWidget {
                 keyboard: TextInputType.text,
                 onChange: (x) {
                   bookingDataMap['LastName']=x;
+                  cubit.lastName=x;
                 },
                 validateFun: (lastName){
                   if(lastName!.isEmpty){
@@ -49,6 +56,7 @@ class FormCenterBody extends StatelessWidget {
           keyboard: TextInputType.number,
           onChange: (x) {
             bookingDataMap['nationalId'] = x;
+            cubit.nationalId=x;
           },
           validateFun: (x) {
             if (x!.length == 14) {
@@ -63,22 +71,65 @@ class FormCenterBody extends StatelessWidget {
             }
           },
         ),
+        Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: PaymentTextField(
+                label: 'Phone',
+                keyboard: TextInputType.number,
+                onChange: (x) {
+                  bookingDataMap['Phone'] = x;
+                  cubit.phone=x;
+                },
+                perText: '+ 20',
+                validateFun: (x) {
+                  if (x!.length == 10) {
+                    try {
+                      int.parse(x!);
+                      return null;
+                    } catch (e) {
+                      return 'only numbers field';
+                    }
+                  } else {
+                    return 'expected 10 num';
+                  }
+                },
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: PaymentTextField(
+                label: 'City',
+                keyboard: TextInputType.text,
+                onChange: (x) {
+                  bookingDataMap['clientCity']=x;
+                  cubit.city=x;
+                },
+                validateFun: (city){
+                  if(city!.isEmpty){
+                    return 'required field';
+                  }else if(Governorates.contains(city.toString())){
+                    return null;
+                  }else{
+                    return 'ادخل اسم محافظتك';
+                  }
+                },),
+            ),
+          ],
+        ),
         PaymentTextField(
-          label: 'Phone',
-          keyboard: TextInputType.number,
+          label: 'Detailed address',
+          keyboard: TextInputType.name,
           onChange: (x) {
-            bookingDataMap['Phone'] = x;
+            bookingDataMap['address']=x;
+            cubit.detailedAddress=x;
           },
-          validateFun: (x) {
-            if (x!.length == 11) {
-              try {
-                int.parse(x!);
-                return null;
-              } catch (e) {
-                return 'only numbers field';
-              }
-            } else {
-              return 'expected 11 num';
+          validateFun: (address){
+            if(address!.isEmpty){
+              return 'required field';
+            }else {
+              return null;
             }
           },
         ),

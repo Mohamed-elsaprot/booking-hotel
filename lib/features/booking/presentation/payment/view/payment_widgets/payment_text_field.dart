@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pickytour/core/widgets/custom_text.dart';
 
 class PaymentTextField extends StatelessWidget {
-  const PaymentTextField({Key? key, required this.label, required this.onChange, this.validateFun, required this.keyboard, this.icon}) : super(key: key);
+  const PaymentTextField({Key? key, required this.label, required this.onChange, this.validateFun, required this.keyboard, this.icon, this.perText}) : super(key: key);
 
   final String label;
   final Function(String) onChange;
   final String? Function(String?)? validateFun;
   final TextInputType keyboard;
   final IconData? icon;
+  final String? perText;
   @override
   Widget build(BuildContext context) {
     Size size= MediaQuery.of(context).size;
@@ -31,13 +32,14 @@ class PaymentTextField extends StatelessWidget {
             onChanged: onChange,
             keyboardType: keyboard,
             cursorColor: Colors.grey,
-            decoration:  const InputDecoration(
-              border: OutlineInputBorder(
+            decoration:  InputDecoration(
+              prefixText: perText,
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
               //   enabledBorder: borderStyle(Colors.black12),
               //   focusedBorder: borderStyle(Colors.blueAccent),
-              //   errorBorder: borderStyle(Colors.red)
+              //    errorBorder: borderStyle(Colors.green)
                ),
 
           ),

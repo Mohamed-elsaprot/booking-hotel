@@ -19,6 +19,7 @@ class BookingBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       Size size = MediaQuery.of(context).size;
+      BookingDataCubit cubit = BlocProvider.of<BookingDataCubit>(context);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,14 +43,14 @@ class BookingBody extends StatelessWidget {
                       children: [
                         Row(
                           children:  [
-                            BookingItem(itemTitle: 'regular',dataItem: BlocProvider.of<BookingDataCubit>(context).regularRome.toInt(),
-                              incrementFun: ()=> BlocProvider.of<BookingDataCubit>(context).changeRegularRome('+'),
-                              decrementFun: ()=> BlocProvider.of<BookingDataCubit>(context).changeRegularRome('-'),
+                            BookingItem(itemTitle: 'regular',dataItem: cubit.regularRome.toInt(),
+                              incrementFun: ()=> cubit.changeRegularRome('+'),
+                              decrementFun: ()=> cubit.changeRegularRome('-'),
                             ),
                             const Spacer(),
                             BookingItem(itemTitle: 'suite',dataItem: BlocProvider.of<BookingDataCubit>(context).suiteRome.toInt(),
-                              incrementFun: ()=> BlocProvider.of<BookingDataCubit>(context).changeSuite('+'),
-                              decrementFun: ()=> BlocProvider.of<BookingDataCubit>(context).changeSuite('-'),
+                              incrementFun: ()=> cubit.changeSuite('+'),
+                              decrementFun: ()=> cubit.changeSuite('-'),
                             )
                           ],
                         ),
@@ -70,7 +71,7 @@ class BookingBody extends StatelessWidget {
                             ),
                           ],
                         ),
-                        PriceRow(hotelPrice: BlocProvider.of<BookingDataCubit>(context).calcCoast(hotel),),
+                        PriceRow(hotelPrice: cubit.calcCoast(hotel),),
                         SizedBox(height: size.height*.04,),
                         PaymentButton(hotel: hotel,)
                       ],

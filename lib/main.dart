@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ void main()async{
 
   runApp(const PickyTourApp());
   //runApp( AdminScreen(apiService: ApiService(Dio()),));
-  //llllll
+
 }
 
 class PickyTourApp extends StatelessWidget {
