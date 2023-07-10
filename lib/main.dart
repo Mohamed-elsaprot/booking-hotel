@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,20 +16,22 @@ void main()async{
   setupGetItService();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   // List ordersList=[];
   // CollectionReference orders =//kMessagesCollections
-  // FirebaseFirestore.instance.collection('mo');
-  // await orders.add({'moo':'sdsd','eldeeb':123, 'date':DateTime.now()});
-  // orders.orderBy('date', descending: true).snapshots().listen((event) {
+  // FirebaseFirestore.instance.collection('mo').doc('1').collection('11');
+  // await orders.add({'moo':'sdsd','eldeeb':{'1':1,'2':2,'3':3}, 'date':'${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}'});
+  // orders.orderBy('eldeeb', descending: true).snapshots().listen((event) {
   //   ordersList.clear();
   //   for(var doc in event.docs) {
   //     print('------');
-  //     print(doc['date']);
+  //     print(doc.data());
+  //     doc['eldeeb'].forEach((k,v) {print(v);});
   //   }
   // });
 
-  runApp(const PickyTourApp());
-  //runApp( AdminScreen(apiService: ApiService(Dio()),));
+  //runApp(const PickyTourApp());
+  runApp( AdminScreen(apiService: ApiService(Dio()),));
 
 }
 
@@ -58,5 +61,3 @@ class PickyTourApp extends StatelessWidget {
     );
   }
 }
-
-

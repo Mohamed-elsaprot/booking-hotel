@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pickytour/core/utils/api_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pickytour/core/utils/functions.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({
@@ -20,6 +21,7 @@ class AdminScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: ListView.separated(
+          physics: const BouncingScrollPhysics(),
           itemCount: 10,
           itemBuilder: (ctx,index){
             return Slidable(
@@ -30,7 +32,11 @@ class AdminScreen extends StatelessWidget {
                     motion: const StretchMotion(),
                     children: [
                       SlidableAction(
-                        onPressed: (context){},
+                        onPressed: (context)async{
+                          //for(int i=1; i<=10;i++)print(i);
+                          //goToMaps(ctx: context);
+                          await sendLoactionData(ctx:context);
+                        },
                         label: 'delete',
                         icon: Icons.delete,
                         backgroundColor: Colors.red,
@@ -47,7 +53,7 @@ class AdminScreen extends StatelessWidget {
                   onTap: (){},
                 ));
           },
-          separatorBuilder: (context,index)=> const Divider(height: 0,color: Colors.cyan,),
+          separatorBuilder: (context,index)=> const Divider(height: 5,color: Colors.cyan,thickness: .5,),
         ),
       ),
     );

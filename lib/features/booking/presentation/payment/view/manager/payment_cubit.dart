@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:pickytour/core/utils/functions.dart';
 import 'package:pickytour/core/utils/paymob_getway.dart';
 import 'package:pickytour/features/booking/presentation/payment/view/manager/payment_states.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,6 +29,7 @@ class PaymentCubit extends Cubit<PaymentStates>{
   }
 
   Future getOrderId({
+    required BuildContext ctx,
     required String firstName,
     required String lastName,
     required String phone,
@@ -81,7 +84,7 @@ class PaymentCubit extends Cubit<PaymentStates>{
         ).then((value) {
       Paymob.orderIdToken=value.data['id'].toString();
       print('order id: ${Paymob.orderIdToken}');
-      getPaymentRequest(firstName: firstName, lastName: lastName, phone: phone, price: price, email: email, detailedAddress: detailedAddress, country: country, city: detailedAddress);
+      getPaymentRequest(ctx:ctx ,firstName: firstName, lastName: lastName, phone: phone, price: price, email: email, detailedAddress: detailedAddress, country: country, city: detailedAddress);
       emit(PaymentOrderIdSuccess());
     }).catchError((e){
       print('orderrrrr id fail');
@@ -92,6 +95,7 @@ class PaymentCubit extends Cubit<PaymentStates>{
   }
 
   Future getPaymentRequest({
+        required BuildContext ctx,
         required String firstName,
         required String lastName,
         required String phone,
@@ -134,9 +138,9 @@ class PaymentCubit extends Cubit<PaymentStates>{
           print('${Paymob.visaUrl.length}');
           Paymob.visaUrl='${Paymob.baseUrl}/acceptance/iframes/758988?payment_token=';
           Paymob.visaUrl+=Paymob.finalToken;
-          // print('visa: ${Paymob.visaUrl.length}');
-          // print('${Paymob.visaUrl[1151]} : ${Paymob.finalToken[1081]}');
-          launchUrl((Uri.parse(Paymob.visaUrl)));
+
+          launchLink(ctx, Paymob.visaUrl);
+          //launchUrl((Uri.parse(Paymob.visaUrl)));
 
           emit(PaymentRequestSuccess());
     }).catchError((e){

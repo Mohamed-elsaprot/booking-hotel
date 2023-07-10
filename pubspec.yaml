@@ -52,6 +52,8 @@ dependencies:
   cloud_firestore:
   webview_flutter:
   url_launcher:
+  location:
+
   #webview_flutter:
 dev_dependencies:
   flutter_test:

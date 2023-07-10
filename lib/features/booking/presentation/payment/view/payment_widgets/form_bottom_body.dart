@@ -63,6 +63,7 @@ class FormBottomBody extends StatelessWidget {
                         bookingDataMap['createdIn'] = DateTime.now();
                         BlocProvider.of<BookingDataCubit>(context).postBookingData(bookingDataMap);
                         await cubit.getOrderId(
+                          ctx: context,
                           price: '${(bookingDataMap['totalCoast'] * 100).toInt()}',
                           email: BlocProvider.of<AuthCubit>(context).account!,
                           order: bookingDataMap,
