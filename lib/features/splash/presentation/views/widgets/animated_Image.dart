@@ -8,7 +8,7 @@ class AnimatedSplashImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  RotationTransition(
+    return RotationTransition(
             turns: rotateAni,
             child: Container(
               decoration: const BoxDecoration(
