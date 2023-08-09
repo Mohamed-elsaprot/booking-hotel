@@ -28,7 +28,7 @@ Future<void> launchLink( BuildContext ctx, String? url)async{
     }
   }
 }
-
+//
 sendLoactionData({required BuildContext ctx})async{
   Location location= Location();
   bool _serviceEnabled;
